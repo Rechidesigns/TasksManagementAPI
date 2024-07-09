@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using TasksManagementAPI.Data;
+using TasksManagementAPI.Core.Services;
+using TasksManagementAPI.Core.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.RowLimitingOperationWithoutOrderByWarning));
 });
 
+builder.Services.AddScoped<ITaskService, TaskServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
