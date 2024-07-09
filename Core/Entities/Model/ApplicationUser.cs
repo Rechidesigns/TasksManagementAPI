@@ -2,7 +2,7 @@
 
 namespace TasksManagementAPI.Core.Entities.Model
 {
-    public class ApllicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
