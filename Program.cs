@@ -36,8 +36,6 @@ var app = builder.Build();
 //app.UseSwaggerUI();
 
 
-
-
 // remove the if conditon and add the piece of code below to go live
 //use for live deployement and dont forget to go to properties - launchsettings and add production to the last swagger config
 
