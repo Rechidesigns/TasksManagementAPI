@@ -79,9 +79,24 @@ namespace TasksManagementAPI.Core.Services
         }
 
 
-        public Task<ResponseDto<ApplicationUser>> GetUserByEmailAsync(string email)
+        public async Task<ResponseDto<ApplicationUser>> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await _context.ApplicationUsers.FindAsync(email);
+
+            if (user == null)
+            {
+                return new ResponseDto<ApplicationUser>
+                {
+                    Data = null,
+                    Message = "User email Not Found"
+                };
+            }
+
+            return new ResponseDto<ApplicationUser>
+            {
+                Data = user,
+                Message = "User email found successfully"
+            };
         }
     }
 }
