@@ -6,7 +6,7 @@ namespace TasksManagementAPI.Core.Entities.Model
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false;
 
     }
 }
