@@ -29,23 +29,20 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-
-//use this code for local testing
-
-//app.UseSwagger();
-//app.UseSwaggerUI();
-
-
-// remove the if conditon and add the piece of code below to go live
-//use for live deployement and dont forget to go to properties - launchsettings and add production to the last swagger config
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Task Management API V1");
-    c.RoutePrefix = string.Empty;
-});
-
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Task Management API V1");
+        c.RoutePrefix = string.Empty;
+    });
+}
 
 app.UseHttpsRedirection();
 
