@@ -14,8 +14,8 @@ namespace TasksManagementAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         // register your models in the database context.
-        public DbSet <ApplicationUser> applicationUsers { get; set; }
-        public DbSet <TaskManager> taskManagers { get; set; }
+        public DbSet <ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet <TaskManager> TaskManagers { get; set; }
 
     }
 

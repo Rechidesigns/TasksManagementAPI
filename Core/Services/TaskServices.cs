@@ -25,7 +25,7 @@ namespace TasksManagementAPI.Core.Services
                 Status = taskDto.Status
             };
 
-            _context.taskManagers.Add(taskManager);
+            _context.TaskManagers.Add(taskManager);
             await _context.SaveChangesAsync();
 
             return new ResponseDto<TaskManager>
@@ -37,7 +37,7 @@ namespace TasksManagementAPI.Core.Services
 
         public async Task<ResponseDto<string>> DeleteTaskAsync(string id)
         {
-            var taskManager = await _context.taskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(id);
             if (taskManager == null)
             {
                 return new ResponseDto<string>
@@ -47,7 +47,7 @@ namespace TasksManagementAPI.Core.Services
                 };
             }
 
-            _context.taskManagers.Remove(taskManager);
+            _context.TaskManagers.Remove(taskManager);
             await _context.SaveChangesAsync();
 
             return new ResponseDto<string>
@@ -59,7 +59,7 @@ namespace TasksManagementAPI.Core.Services
 
         public async Task<ResponseDto<IEnumerable<TaskManager>>> GetAllTaskAsync()
         {
-            var taskManager = await _context.taskManagers.ToListAsync();
+            var taskManager = await _context.TaskManagers.ToListAsync();
 
             return new ResponseDto<IEnumerable<TaskManager>>
             {
@@ -70,7 +70,7 @@ namespace TasksManagementAPI.Core.Services
 
         public async Task<ResponseDto<TaskManager>> GetTaskByIdAsync(string id)
         {
-            var taskManager = await _context.taskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(id);
 
             if (taskManager == null)
             {
@@ -90,7 +90,7 @@ namespace TasksManagementAPI.Core.Services
 
         public async Task<ResponseDto<TaskManager>> UpdateTaskAsync(string id, TaskDto taskDto)
         {
-            var taskManager = await _context.taskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(id);
 
             if (taskManager == null)
             {

@@ -25,7 +25,7 @@ namespace TasksManagementAPI.Core.Services
         {
             try
             {
-                var emailExists = await _context.applicationUsers
+                var emailExists = await _context.ApplicationUsers
                     .Where(x => x.Email == userDto.Email)
                     .FirstOrDefaultAsync();
 
