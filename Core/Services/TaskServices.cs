@@ -52,7 +52,7 @@ namespace TasksManagementAPI.Core.Services
 
             return new ResponseDto<string>
             {
-                Data = "1",
+                Data = id,
                 Message = "Task Deleted Successfully"
             };
         }
