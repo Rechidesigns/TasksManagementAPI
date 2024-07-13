@@ -98,5 +98,15 @@ namespace TasksManagementAPI.Core.Services
                 Message = "User email found successfully"
             };
         }
+
+        public async Task<ResponseDto<ApplicationUser>> UpdateUserAsync(UserDto userDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ResponseDto<string>> DeleteUserAsync(string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

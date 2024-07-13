@@ -7,5 +7,7 @@ namespace TasksManagementAPI.Core.Interface
     {
         Task<ResponseDto<ApplicationUser>> GetUserByEmailAsync (string email);
         Task<ResponseDto<ApplicationUser>> CreateUserAsync (UserDto userDto);
+        Task<ResponseDto<ApplicationUser>> UpdateUserAsync (UserDto userDto);
+        Task<ResponseDto<string>> DeleteUserAsync (string userId);
     }
 }
