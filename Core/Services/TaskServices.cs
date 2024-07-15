@@ -31,7 +31,7 @@ namespace TasksManagementAPI.Core.Services
             return new ResponseDto<TaskManager>
             {
                 Data = taskManager,
-                Message = "Task Created Successfuly"
+                Message = "Task Created Successfully"
             };
         }
 

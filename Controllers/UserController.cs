@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TasksManagementAPI.Core.Entities.Dto;
 using TasksManagementAPI.Core.Entities.Model;
@@ -19,7 +20,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserDto userDto)
+        public async Task<ActionResult> Register (UserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -34,6 +35,54 @@ namespace TasksManagementAPI.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet("{email}")]
+        public async Task<ActionResult<ResponseDto<ApplicationUser>>> GetUserByEmail (string email)
+        {
+            var response = await _userService.GetUserByEmailAsync(email);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+
+        }
+
+        [HttpPatch("{userId}")]
+        public async Task<ActionResult<ResponseDto<ApplicationUser>>> UpdateUser (UserEditDto userEditDto, string userId)
+        {
+            var response = await _userService.UpdateUserAsync(userEditDto, userId);
+
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<ActionResult<ResponseDto<string>>> DeleteUser (string userId)
+        {
+            var response = await _userService.DeleteUserAsync(userId);
+
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<ResponseDto<ApplicationUser>>> GetUserByUserId (string userId)
+        {
+            var response = await _userService.GetUserByUserIdAsync(userId);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+
         }
     }
 }

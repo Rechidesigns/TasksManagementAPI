@@ -62,7 +62,7 @@ namespace TasksManagementAPI.Core.Services
                     return new ResponseDto<ApplicationUser>
                     {
                         Data = null,
-                        Message = "There was an error creating this user. Please check your imput and try again. " +
+                        Message = "There was an error creating this user. Please check your input and try again. " +
                         "'Note' Password must contain at least 8 characters, including uppercase, lowercase, numeric digit, and special character"
                     };
                 }
@@ -81,7 +81,7 @@ namespace TasksManagementAPI.Core.Services
 
         public async Task<ResponseDto<ApplicationUser>> GetUserByEmailAsync(string email)
         {
-            var user = await _context.ApplicationUsers.FindAsync(email);
+            var user =  await _context.ApplicationUsers.Where(x => x.Email == email).FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -99,14 +99,74 @@ namespace TasksManagementAPI.Core.Services
             };
         }
 
-        public async Task<ResponseDto<ApplicationUser>> UpdateUserAsync(UserDto userDto)
+        public async Task<ResponseDto<ApplicationUser>> UpdateUserAsync(UserEditDto userEditDto, string userId)
         {
-            throw new NotImplementedException();
+            var user = await _context.ApplicationUsers.FindAsync(userId);
+
+            if (user == null)
+            {
+                return new ResponseDto<ApplicationUser>
+                {
+                    Data = null,
+                    Message = "User with this ID does not exist"
+                };
+            }
+
+            user.FirstName = userEditDto.FirstName;
+            user.LastName = userEditDto.LastName;
+            user.PhoneNumber = userEditDto.PhoneNumber;
+
+            await _context.SaveChangesAsync();
+
+            return new ResponseDto<ApplicationUser>
+            {
+                Data = user,
+                Message = "User details has been updated successfully"
+            };
         }
+
 
         public async Task<ResponseDto<string>> DeleteUserAsync(string userId)
         {
-            throw new NotImplementedException();
+            var user = await _context.ApplicationUsers.FindAsync(userId);
+
+            if (user == null)
+            {
+                return new ResponseDto<string>
+                {
+                    Data = null,
+                    Message = "User does not exist"
+                };
+            }
+
+            _context.ApplicationUsers.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return new ResponseDto<string>
+            {
+                Data = userId,
+                Message = " Your account has been deleted successfully"
+            };
+        }
+
+        public async Task<ResponseDto<ApplicationUser>> GetUserByUserIdAsync(string userId)
+        {
+            var user = await _context.ApplicationUsers.FindAsync(userId);
+
+            if (user == null)
+            {
+                return new ResponseDto<ApplicationUser>
+                {
+                    Data = null,
+                    Message = "User with this details Not Found"
+                };
+            }
+
+            return new ResponseDto<ApplicationUser>
+            {
+                Data = user,
+                Message = "User details found successfully"
+            };
         }
     }
 }
