@@ -19,7 +19,7 @@ namespace TasksManagementAPI.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult> Register (UserDto userDto)
         {
             if (!ModelState.IsValid)
@@ -37,7 +37,7 @@ namespace TasksManagementAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("email/{email}")]
         public async Task<ActionResult<ResponseDto<ApplicationUser>>> GetUserByEmail (string email)
         {
             var response = await _userService.GetUserByEmailAsync(email);

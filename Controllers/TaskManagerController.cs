@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TasksManagementAPI.Core.Entities.Dto;
 using TasksManagementAPI.Core.Entities.Model;
 using TasksManagementAPI.Core.Interface;
+using TasksManagementAPI.Core.Services;
 
 namespace TasksManagementAPI.Controllers
 {
@@ -30,10 +31,10 @@ namespace TasksManagementAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseDto<TaskManager>>> GetTaskById(string id)
+        [HttpGet("{taskId}")]
+        public async Task<ActionResult<ResponseDto<TaskManager>>> GetTaskByTaskId (string taskId)
         {
-            var response = await _taskService.GetTaskByIdAsync(id);
+            var response = await _taskService.GetTaskByTaskIdAsync(taskId);
             if (response.Data == null)
             {
                 return NotFound(response);
@@ -42,17 +43,28 @@ namespace TasksManagementAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<ResponseDto<TaskManager>>> CreateTask(TaskDto taskDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var response = await _taskService.CreateTaskAsync(taskDto);
-            return CreatedAtAction(nameof(GetTaskById), new { id = response.Data.Id }, response);
+
+            if (response.Data == null)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseDto<TaskManager>>> UpdateTask(string id, TaskDto taskDto)
+        [HttpPut("{taskId}")]
+        public async Task<ActionResult<ResponseDto<TaskManager>>> UpdateTask(string taskId, TaskDto taskDto)
         {
-            var response = await _taskService.UpdateTaskAsync(id, taskDto);
+            var response = await _taskService.UpdateTaskAsync(taskId, taskDto);
             if (response.Data == null)
             {
                 return NotFound(response);
@@ -61,10 +73,10 @@ namespace TasksManagementAPI.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ResponseDto<string>>> DeleteTask (string id)
+        [HttpDelete("{taskId}")]
+        public async Task<ActionResult<ResponseDto<string>>> DeleteTask (string taskId)
         {
-            var response = await _taskService.DeleteTaskAsync(id);
+            var response = await _taskService.DeleteTaskAsync(taskId);
             if (response.Data == null)
             {
                 return NotFound(response);

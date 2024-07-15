@@ -7,8 +7,8 @@ namespace TasksManagementAPI.Core.Interface
     {
         Task<ResponseDto<TaskManager >> CreateTaskAsync(TaskDto taskDto);
         Task<ResponseDto<IEnumerable<TaskManager>>> GetAllTaskAsync();
-        Task<ResponseDto<TaskManager>> GetTaskByIdAsync(string id);
-        Task<ResponseDto<TaskManager>> UpdateTaskAsync( string id, TaskDto taskDto);
-        Task<ResponseDto<string>> DeleteTaskAsync(string id);
+        Task<ResponseDto<TaskManager>> GetTaskByTaskIdAsync(string taskId);
+        Task<ResponseDto<TaskManager>> UpdateTaskAsync( string taskId, TaskDto taskDto);
+        Task<ResponseDto<string>> DeleteTaskAsync(string taskId);
     }
 }

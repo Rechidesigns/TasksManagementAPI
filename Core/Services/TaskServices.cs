@@ -35,9 +35,9 @@ namespace TasksManagementAPI.Core.Services
             };
         }
 
-        public async Task<ResponseDto<string>> DeleteTaskAsync(string id)
+        public async Task<ResponseDto<string>> DeleteTaskAsync(string taskId)
         {
-            var taskManager = await _context.TaskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(taskId);
             if (taskManager == null)
             {
                 return new ResponseDto<string>
@@ -52,7 +52,7 @@ namespace TasksManagementAPI.Core.Services
 
             return new ResponseDto<string>
             {
-                Data = id,
+                Data = taskId,
                 Message = "Task Deleted Successfully"
             };
         }
@@ -68,9 +68,9 @@ namespace TasksManagementAPI.Core.Services
             };
         }
 
-        public async Task<ResponseDto<TaskManager>> GetTaskByIdAsync(string id)
+        public async Task<ResponseDto<TaskManager>> GetTaskByTaskIdAsync(string taskId)
         {
-            var taskManager = await _context.TaskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(taskId);
 
             if (taskManager == null)
             {
@@ -88,16 +88,16 @@ namespace TasksManagementAPI.Core.Services
             };
         }
 
-        public async Task<ResponseDto<TaskManager>> UpdateTaskAsync(string id, TaskDto taskDto)
+        public async Task<ResponseDto<TaskManager>> UpdateTaskAsync(string taskId, TaskDto taskDto)
         {
-            var taskManager = await _context.TaskManagers.FindAsync(id);
+            var taskManager = await _context.TaskManagers.FindAsync(taskId);
 
             if (taskManager == null)
             {
                 return new ResponseDto<TaskManager>
                 {
                     Data = null,
-                    Message = "Tasks With The ID Does Not Exist"
+                    Message = "Tasks With The taskId Does Not Exist"
                 };
             }
 
