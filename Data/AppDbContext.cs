@@ -17,6 +17,8 @@ namespace TasksManagementAPI.Data
         // register your models in the database context.
         public DbSet <ApplicationUser> ApplicationUsers { get; set; }
         public DbSet <TaskManager> TaskManagers { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
+
         public DbSet<PersistedLogin> PersistedLogins { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
