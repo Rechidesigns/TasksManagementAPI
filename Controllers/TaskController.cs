@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TasksManagementAPI.Core.Entities.Dto;
 using TasksManagementAPI.Core.Services;
@@ -17,6 +18,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpGet("{userId}/all-tasks")]
+        [Authorize]
         public async Task<IActionResult> GetAllTasks(string userId)
         {
             var response = await _tasksServices.GetAllTaskAsync(userId);
@@ -28,6 +30,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpGet("{userId}/tasks/{taskId}")]
+        [Authorize]
         public async Task<IActionResult> GetTaskById(string userId, string taskId)
         {
             var response = await _tasksServices.GetTaskByTaskIdAsync(userId, taskId);
@@ -39,6 +42,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpPut("{userId}/tasks/{taskId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateTask(string userId, string taskId, [FromBody] TaskDto taskDto)
         {
             var response = await _tasksServices.UpdateTaskAsync(userId, taskId, taskDto);
@@ -50,6 +54,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpDelete("{userId}/tasks/{taskId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTask(string userId, string taskId)
         {
             var response = await _tasksServices.DeleteTaskAsync(userId, taskId);
@@ -61,6 +66,7 @@ namespace TasksManagementAPI.Controllers
         }
 
         [HttpPost("{userId}/tasks")]
+        [Authorize]
         public async Task<IActionResult> CreateTask(string userId, [FromBody] TaskDto taskDto)
         {
             var response = await _tasksServices.CreateTaskAsync(userId, taskDto);
